@@ -15,7 +15,7 @@
       <td align="center"><a href="https://github.com/holyhw"><img src="https://avatars.githubusercontent.com/u/162965202?v=4" width="100px;" alt=""/><br /><sub><b>유현욱</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/nnjys99"><img src="https://avatars.githubusercontent.com/u/225927416?v=4" width="100px;" alt=""/><br /><sub><b>장유석</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/tjwngml"><img src="https://avatars.githubusercontent.com/u/226293705?v=4" width="100px;" alt=""/><br /><sub><b>서주희</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/Mark-Yoo"><img src="https://avatars.githubusercontent.com/u/46216456?v=4" width="100px;" alt=""/><br /><sub><b>d유진혁</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/Mark-Yoo"><img src="https://avatars.githubusercontent.com/u/46216456?v=4" width="100px;" alt=""/><br /><sub><b>유진혁</b></sub></a><br /></td>
      </tr>
   </tbody>
 </table>
