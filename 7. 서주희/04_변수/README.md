@@ -7,7 +7,7 @@
 
 <br>
 
-```
+```JavaSript
 10 + 20
 ```
 
@@ -53,7 +53,31 @@
 
 - 변수를 사용하기 위해서는 선언이 필요한데, 변수를 선언할 때는 `var` , `let`, `const` 키워드를 사용한다.
 
-예시 : `var score; // 변수 선언문`
+예시 :
+
+```JavaScript
+// var 예시
+var myName = '사파리';
+console.log(myName); // 사파리
+
+var myName = '김멋사'; // 재선언 가능
+console.log(myName); // 김멋사
+
+// let 예시
+let age = 30;
+console.log(age); // 30
+
+age = 31; // 재할당 가능
+console.log(age); // 31
+
+// let age = 32; // SyntaxError: 'age' has already been declared (재선언 불가능)
+
+// const 예시
+const PI = 3.14;
+console.log(PI); // 3.14
+
+// PI = 3.15; // TypeError: Assignment to constant variable. (재할당 불가능)
+```
 
 - 각 변수 선언문은 변수 이름을 등록하고 값을 저장할 메모리 공간을 확보한다. 자바스크립트 엔진은 변수 선언을 2단계에 거쳐 수행한다.
 
@@ -89,6 +113,8 @@ console.log(score); //undefined var score; // 변수 선언문
 
 - 이처럼 변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 **변수 호이스팅 ( Variable hoisting)** 이라 한다.
 
+<br>
+
 ---
 
 ### 값의 할당
@@ -99,7 +125,7 @@ console.log(score); //undefined var score; // 변수 선언문
 
 예시:
 
-```
+```JavaScript
 var score; // 변수 선언
 score = 80 ; // 값의 할당
 ```
@@ -132,4 +158,21 @@ var score = 80; // 변수 선언과 값의 할당 score = 90; // 값의 재할�
 
   - 단, 식별자는 특수문자를 제외한 문자, 언더스코어(\_), 달러 기호(&)로 시작해야 한다. 숫자로 시작하는 것은 허용되지 않는다.
 
-  - 예약어는 식별자로 사용할 수 **없다**.
+  - **예약어(Reserved words)** 는 식별자로 사용할 수 **없다**.
+
+  - **_카멜 케이스(camelCase)를 사용하는 것이 일반적_**.
+
+예시 :
+
+```JavaScript
+// 올바른 예시
+let myVariable;
+let $price;
+let _total;
+let userName; // 카멜 케이스
+
+// 잘못된 예시 (SyntaxError 발생)
+// let 1stVariable; // 숫자로 시작
+// let for; // 예약어 사용
+// let my-variable; // 하이픈 사용
+```
