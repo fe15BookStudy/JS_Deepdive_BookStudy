@@ -176,3 +176,11 @@ let userName; // 카멜 케이스
 // let for; // 예약어 사용
 // let my-variable; // 하이픈 사용
 ```
+
+---
+
+참고하면 좋을 레퍼런스들
+
+1. MDN : <https://developer.mozilla.org/ko/docs/Web/JavaScript?utm_source=chatgpt.com> MDN
+
+2. 메뉴얼과 명세 : <https://ko.javascript.info/manuals-specifications?utm_source=chatgpt.com>
