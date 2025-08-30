@@ -16,7 +16,8 @@
   - 활용 : 변수에 기본값을 할당할 때 유용합니다. (예: let name = myname || 'default';)
     | 단축 평가 표현식 | 평가 결과 |
     | -------------------- | ------------------------------ |
-    | true || anything | true |
+    | true \|\| anything | true |
+    | false \|\| anything | anything |
     | true && anything | anything |
     | false && anything | false |
 
