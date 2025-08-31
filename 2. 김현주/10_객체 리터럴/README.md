@@ -33,24 +33,19 @@ var empty = {};
 - 프로퍼티 접근 방법
   객체의 프로퍼티에 접근하는 방법은 두 가지가 있습니다.
 
-  - 마침표 프로퍼티 접근 연산자(dot notation): 객체이름.프로퍼티키 형태로 사용합니다. 프로퍼티 키가 식별자 명명 규칙을 준수할 때 사용합니다.
-
-  - 대괄호 프로퍼티 접근 연산자(bracket notation): 객체이름['프로퍼티키'] 형태로 사용합니다. 따옴표를 사용해야 하며, 식별자 명명 규칙을 따르지 않는 키나 변수에 저장된 키를 사용할 때 유용합니다.
-
-- 프로퍼티 동적 생성, 갱신, 삭제
-
-  - 동적 생성: 객체에 존재하지 않는 프로퍼티에 값을 할당하면 해당 프로퍼티가 동적으로 생성됩니다.
-
-  - 갱신: 이미 존재하는 프로퍼티에 새로운 값을 할당하면 프로퍼티의 값이 갱신됩니다.
-
-  - 삭제: delete 연산자를 사용해 객체의 특정 프로퍼티를 삭제할 수 있습니다.
-
-```javascript
-var person = {
-  name: 'Lee', //프로퍼티
-  age: 20,
-};
-```
+  ```javascript
+  let apple = {
+    name: 'apple',
+    'hello-bye': '🖐️',
+    0: 1,
+    ['hello-bye1']: '🖐️',
+  };
+  //속성, 데이터에 접근하기 위해서는
+  console.log(apple.name); //마침표 표기법 dot notation
+  console.log(apple['hello-bye1']); //대괄호 표기법 bracket notation
+  console.log(apple['hello-bye']);
+  apple['name'];
+  ```
 
 # 객체의 구성
 
@@ -112,6 +107,34 @@ sayHi() { console.log(this.name); }
 
 - delete연산자로 프로퍼티 삭제 가능
 - 존재하지 않는 프로퍼티 삭제 시 에러 발생하지 않음
+
+```javascript
+const obj = {
+  name: '현주',
+  age: 20,
+};
+//코딩하는 시점에, 정적으로 접근이 확정됨
+obj.name;
+obj.age;
+
+//동적으로 속성에 접근하고 싶을때 대괄호 표기법 사용!
+function getValue(obj, key) {
+  return obj[key];
+}
+console.log(getValue(obj, 'name'));
+
+function addKey(obj, key, value) {
+  obj[key] = value;
+}
+addKey(obj, 'job', 'engineer');
+console.log(obj);
+
+function deleteKey(obj, key) {
+  delete obj[key];
+}
+deleteKey(obj, 'age', '20');
+console.log(obj);
+```
 
 # ES6에서 추가된 객체 리터럴 확장 기능
 
