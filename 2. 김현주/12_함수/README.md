@@ -47,6 +47,12 @@ var add = function (x, y) {
 const add = (x, y) => x + y;
 ```
 
+# 12.4.5 화살표 함수(ES6)
+
+```javascript
+var add = (x, y) => x + y;
+```
+
 # 12.5 함수 호출
 
 # 12.5.1 매개변수와 인수
@@ -79,40 +85,74 @@ function add(x, y) {
 }
 ```
 
-- 매개변수 개수
-  - 공식적으로 제한 없음.
-  - 하지만 3개 이하 권장 (가독성과 유지보수성).
-  - 더 많으면 객체를 인수로 전달하는 방식이 좋음:
-  ```javascript
-  $.ajax({ method: 'POST', url: '/user', data: { id: 1, name: 'Lee' } });
-  ```
+# 12.5.3 매개변수의 최대 개수
+
+- 공식적으로 제한 없음.
+- 하지만 3개 이하 권장 (가독성과 유지보수성).
+- 더 많으면 객체를 인수로 전달하는 방식이 좋음:
+
+```javascript
+$.ajax({
+method: 'POST',
+url: '/user',
+data: { id: 1, name: 'Lee' }.
+cache: false
+});
+```
 
 # 12.5.4 반환문
 
 - return 키워드로 함수 실행 결과 반환
 - 반환문이 없으면 undefined 반환
-
-# 12.5.5 화살표 함수(ES6)
-
-```javascript
-var add = (x, y) => x + y;
-```
-
 - 간결한 문법, this 바인딩 방식 다름.
 
-# 12.6 참조에 의한 전달과 외부 상태의 변경
+```javascript
+function multiply(x, y) {
+  return x * y; //반환문
+}
 
-값에 의한 전달 vs 참조에 의한 전달
+//함수 호출은 반환값으로 평가된다.
+var result = multiply(3, 5);
+console.log(result);
+```
 
-- 원시값: 값 자체가 복사되어 전달(값에 의한 전달)
-- 객체: 참조값이 복사되어 전달(참조에 의한 전달)
+```javascript
+function multiply(x, y) {
+  return x * y; //반환문
+  //반환문 이후에 다른 문이 존재하면 그 문은 실행되지 않고 무시된다.
+  console.log('실행되지 않는다.');
+}
+console.log(multiply(3, 5)); //15
+```
+
+```javascript
+function foo() {
+  return;
+}
+console.log(foo()); //undefined
+```
+
+반환문은 함수 몸체 내부에서만 사용할 수 있다. 전역에서 반환문을 사용하면 문법 에러(SyntaxError Illegal return statement)가 발생한다.
+
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      return; //SyntaxError Illegal return statement
+    </script>
+  </body>
+</html>
+
+# 12.6 참조에 의한 전달과 외부 상태의 변경 값에 의한 전달 vs 참조에 의한
+
+전달 - 원시값: 값 자체가 복사되어 전달(값에 의한 전달) - 객체: 참조값이 복사되어
+전달(참조에 의한 전달)
 
 ```javascript
 function changeVal(primitive, obj) {
   primitive += 100;
   obj.name = 'Kim';
 }
-
 var num = 100;
 var person = { name: 'Lee' };
 changeVal(num, person);
@@ -141,17 +181,10 @@ console.log(person); // {name: "Kim"} (변경됨)
 # 12.7.2 재귀함수
 
 ```javascript
-function repeat(n, f) {
-  for (var i = 0; i < n; i++) {
-    f(i);
-  }
+function countdown(n) {
+  for (var i = n; i >= 0; i--) console.log(i);
 }
-// 재귀 함수로 구현
-function repeat(n, f) {
-  if (n <= 0) return;
-  f(n);
-  repeat(n - 1, f);
-}
+countdown(10);
 ```
 
 - 자기 자신을 호출하는 함수
@@ -192,8 +225,8 @@ var logAll = function (i) {
 repeat(5, logAll); // 0 1 2 3 4
 ```
 
-고차 함수: 함수를 매개변수로 전달받거나 함수를 반환하는 함수
-콜백 함수: 다른 함수에 매개변수로 전달되어 특정 시점에 호출되는 함수
+- 고차 함수: 함수를 매개변수로 전달받거나 함수를 반환하는 함수
+- 콜백 함수: 다른 함수에 매개변수로 전달되어 특정 시점에 호출되는 함수
 
 # 12.7.5 순수 함수와 비순수 함수
 
@@ -222,7 +255,3 @@ function increase() {
 - 순수 함수: 동일한 인수로 호출하면 항상 동일한 값 반환, 외부 상태 변경 없음
 - 비순수 함수: 외부 상태에 의존하거나 외부 상태를 변경하는 함수
 - 함수형 프로그래밍에서는 순수 함수를 통해 부수 효과를 최소화하고 안정성을 높임
-
-```
-
-```
