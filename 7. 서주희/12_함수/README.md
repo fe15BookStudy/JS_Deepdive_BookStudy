@@ -172,3 +172,25 @@ console.log (add(2,5)); //7
 함수는 함수 이름으로 호출하는 것이 아닌, 함수 객체를 가리키는 식별자로 호출함을 기억하자.
 
 ---
+
+### 함수 표현식
+
+<br>
+
+<p align="center">
+<img src="./function_exp.jpg" 
+    width="1000px;"
+   </p>
+
+---
+
+### 함수 생성 시점과 함수 호이스팅
+
+   <br>
+
+<p align="center">
+<img src="./function_gene.jpg" 
+    width="1000px;"
+   </p>
+
+---
