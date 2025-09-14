@@ -1,4 +1,5 @@
 <br/>
+<img width="458" height="559" alt="image" src="https://github.com/user-attachments/assets/bac246a5-2ebd-4489-8ef2-5e36d7fcfeaa" />
 
 ## 팀원 소개
 
