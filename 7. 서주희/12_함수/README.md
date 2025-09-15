@@ -587,7 +587,6 @@ increment(); // counter는 2가 된다.
 console.log(counter); // 출력: 2
 ```
 
-
 ```JavaScript
 // 비순수 함수 예시 2: 동일한 입력에 대해 다른 출력을 반환하는 경우
 function getRandomNumber() {
