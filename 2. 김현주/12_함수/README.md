@@ -134,6 +134,7 @@ console.log(foo()); //undefined
 
 반환문은 함수 몸체 내부에서만 사용할 수 있다. 전역에서 반환문을 사용하면 문법 에러(SyntaxError Illegal return statement)가 발생한다.
 
+```html
 <!DOCTYPE html>
 <html>
   <body>
@@ -142,11 +143,12 @@ console.log(foo()); //undefined
     </script>
   </body>
 </html>
+```
 
-# 12.6 참조에 의한 전달과 외부 상태의 변경 값에 의한 전달 vs 참조에 의한
+# 12.6 참조에 의한 전달과 외부 상태의 변경 값에 의한 전달 vs 참조에 의한 전달
 
-전달 - 원시값: 값 자체가 복사되어 전달(값에 의한 전달) - 객체: 참조값이 복사되어
-전달(참조에 의한 전달)
+- 원시값: 값 자체가 복사되어 전달(값에 의한 전달)
+- 객체: 참조값이 복사되어 전달(참조에 의한 전달)
 
 ```javascript
 function changeVal(primitive, obj) {
