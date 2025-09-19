@@ -343,6 +343,256 @@ console.log(add('a','b')); //TypeError : 인수는 모두 숫자 값이어야 �
 
 따라서 함수의 매개변수는 코드를 이해하는 데 방해되는 요소이므로 이상적인 매개변수의 개수는 0개이다. 적을수록 좋다.
 
-매개변수는 최대 3개 이상을 넘지 않는 것을 권장하며, 만약 그 이사으이 매개변수가 필요할 경우에는 하나의 매개변수를 선언 후 객체를 인수로 전달하는 것이 유리하다.
+매개변수는 최대 3개 이상을 넘지 않는 것을 권장하며, 만약 그 이상의 매개변수가 필요할 경우에는 하나의 매개변수를 선언 후 객체를 인수로 전달하는 것이 유리하다.
 
----- 
+---
+
+#### 반환문
+
+함수는 return 키워드와 표현식 (반환값) 으로 이루어진 반환문을 사용해서 결과를 함수 외부로 반환(return)할 수 있다.
+
+```JavaScript
+function multiply (x,y){
+    return x * y; //반환문
+}
+// 함수 호출은 반환값으로 평가된다.
+var result = multiply(3,5);
+console.log(result); //15
+```
+
+위 예제에서 multiply 함수는 두 개의 인수를 전달받아 곱한 결과값을 return 키워드를 사용해 반환한다.
+
+함수는 return 키워드를 사용해 자바스크립트에서 사용 가능한 모든 값을 반환할 수 있다.
+
+함수 호출은 표현식인데, 함수 호출 표현식은 return 키워드가 반환한 표현식의 평가 결과인 반환값으로 평가된다.
+
+---
+
+### 참조에 의한 전달과 외부 상태의 변경
+
+앞서 살펴 보았듯이, 원시 값은 값에 의한 전달, 객체는 참조에 의한 전달 방식으로 동작한다.
+
+**매개변수도 값에 의한 전달, 참조에 의한 전달 방식을 그대로 따른다.**
+
+```JavaScript
+//매개변수 primitive는 원시 값을 전달받고, 매개변수 obj는 객체를 전달받는다.
+function changeVal(primitive, obj) {
+    primitive += 100;
+    obj.name = 'kim';
+}
+
+//외부 상태
+var num = 100;
+var person = { name : 'Lee' }
+
+console.log(num); //100
+console.log(person); // {name: "lee"}
+
+//원시 값은 값 자체가 복사되어 전달되고 객체는 참조 값이 복사되어 전달된다.
+changeVal (num,person);
+
+
+//원시 값은 원본이 훼손되지 않는다.
+console.log(num); //100
+
+//객체는 원본이 훼손된다.
+console.log(person); //{name: "Kim"}
+```
+
+changeVal 함수는 매개변수를 통해 전달받은 원시 타입 인수와 객체 타입 인수를 함수 몸체에서 변경한다.
+
+엄밀히 말하면, 원시 타입 인수를 전달받은 매개변수 `primitive`의 경우, 원시 값은 변경 불가능 하므로 재할당을 통해 새로운 원시 값이 되었고, 객체 타입 인수를 전달받은 매개 변수 obj의 경우, 객체는 변경 가능하므로 재할당 없이 직접 할당된 객체를 변경했다.
+
+**_이때 원시 타입 인수는 값 자체가 복사되어 매개변수에 전달되므로 함수 몸체에서 그 값을 변경해도 원본은 훼손되지 않는다._**
+
+함수 외부에서 함수 몸체 내부로 전달한 원시 값의 원본을 변경하는 어떠한 부수 효과도 발생하지 않는 셈이다.
+
+하지만 `객체 타입`은 다르다. 이는 참조 값이 복사되어 매개변수에 전달되기 때문에 함수 몸체에서 참조 값을 통해 객체를 변경할 경우 원본이 `훼손된다`.
+
+---
+
+### 다양한 함수의 형태
+
+#### 즉시 실행 함수
+
+즉시 실행 함수는 정의되자마자 즉시 실행되는 함수를 말한다.
+
+즉시 실행 함수는 단 한번만 호출되며 다시 호출할 수 없다.
+
+```JavaScript
+// 익명 즉시 실행 함수
+(function () {
+    var a = 3;
+    var b = 5;
+    return a * b;
+
+}());
+```
+
+즉시 실행 함수는 익명 함수를 사용하는 것이 일반적이다.
+그러나 기명 즉시 실행 함수도 사용할 수 있다.
+
+```JavaScript
+// 기명 즉시 실행 함수
+(function foo() {
+    var a = 3;
+    var b = 5;
+    return a * b;
+
+}());
+```
+
+즉시 실행 함수는 반드시 그룹 연산자 (...)로 감싸야 한다.
+그렇지 않으면 `SyntaxError` 가 발생한다.
+
+그룹 연산자로 함수를 묶은 이유는 함수 리터럴을 평가해서 함수 객체를 생성하기 위해서다. 따라서 함수 리터럴을 평가해서 함수 객체를 생성할 수 있다면 그룹 연산자 이외의 연산자를 사용해도 좋다.
+
+즉시 실행 함수도 일반 함수처럼 값을 반환할 수 있고 인수를 전달할 수도 있다.
+
+```JavaScript
+// 즉시 실행 함수도 일반 함수처럼 값을 반환할 수 있다.
+var res = (function () {
+    var a = 3;
+    var b = 5;
+    return a * 5;
+}());
+
+console.log(res); //15
+
+//즉시 실행 함수에도 일반 함수처럼 인수를 전달할 수 있다.
+res = (function (a , b){
+    return a * b;
+
+}(3,5));
+
+console.log(res); //15
+```
+
+<br>
+
+#### 재귀 함수
+
+함수가 자기 자신을 호출하는 것을 재귀 호출 이라 한다. 재귀 함수는 자기 자신을 호출하는 함수를 말한다.
+
+재귀 함수를 사용하면 반복되는 처리를 반복문 없이 구현가능하다.
+
+```JavaScript
+//팩토리얼은 1부터 자신까지의 모든 양의 정수의 곱이다.
+// n! = 1 * 2 * ... * ( n -1 ) * n
+function factorial(n) {
+    //탈출 조건 : n이 1이하일 때 재귀 호출을 멈춘다.
+    if ( n <= 1 ) return 1;
+    //재귀 호출
+    return n * factorial(n-1);
+}
+
+console.log(factorial(0)); //0! =1
+console.log(factorial(1)); //1! =1
+console.log(factorial(2)); //2! =2
+console.log(factorial(3)); //3! =6
+console.log(factorial(4)); //4! =24
+console.log(factorial(5)); //5! =120
+```
+
+<br>
+
+#### 중첩 함수
+
+중첩 함수는 다른 함수 내부에 정의된 함수를 의미한다. 중첩 함수는 자신을 감싸는 외부 함수의 변수와 매개변수에 접근할 수 있는 **클로저(Closure)** 의 특성을 가지기 때문에 외부 함수의 실행이 끝나더라도 내부 함수는 외부 함수의 스코프에 계속 접근할 수 있다.
+
+```JavaScript
+function outerFunction(outerVariable) {
+    // 중첩 함수 정의
+    function innerFunction(innerVariable) {
+        console.log('외부 변수:', outerVariable);
+        console.log('내부 변수:', innerVariable);
+    }
+
+    // 중첩 함수 호출
+    innerFunction('내부 값');
+}
+
+outerFunction('외부 값');
+// 출력:
+// 외부 변수: 외부 값
+// 내부 변수: 내부 값
+```
+
+<br>
+
+#### 콜백 함수
+
+콜백 함수는 함수의 실행 순서를 보장하거나 이벤트가 발생했을 때 특정 로직을 실행하는 데 필수적인데, 콜백 함수는 비동기적으로 작동하는 코드를 작성할 때 특히 중요하다. 예를 들면 서버에서 데이터를 가져오는 작업이 완료된 후에만 특정 코드를 실행하고 싶을 때 콜백 함수를 사용하기도 한다.
+
+```JavaScript
+// 콜백 함수를 인자로 받는 함수
+function processData(data, callback) {
+    console.log('데이터를 처리 중...');
+    // 데이터 처리 후 콜백 함수 호출
+    callback(data + 10);
+}
+
+// 콜백 함수 정의
+function displayResult(result) {
+    console.log('처리된 결과:', result);
+}
+
+// 함수 호출 (콜백 함수를 인자로 전달)
+processData(5, displayResult);
+// 출력:
+// 데이터를 처리 중...
+// 처리된 결과: 15
+```
+
+<br>
+
+#### 순수함수와 비순수함수
+
+함수를 분류하는 방법 중 하나로 **순수 함수(Pure Function)** 와 **비순수 함수(Impure Function)** 라는 개념이 존재한다. 이 둘의 가장 큰 차이점은 외부 상태를 변경하거나 외부 상태에 의존하는지의 여부이다.
+
+- 순수함수(Pure Function)
+
+1. 동일한 입력에 대해 항상 동일한 출력을 반환
+
+2. 함수 외부의 상태를 변경하지 않는다(부수 효과(Side Effect)가 없음).
+
+```JavaScript
+// 순수 함수 예시
+function add(a, b) {
+    return a + b;
+}
+
+const result1 = add(2, 3); // 항상 5를 반환
+console.log(result1); // 출력: 5
+
+const result2 = add(2, 3); // 다시 호출해도 동일한 5를 반환
+console.log(result2); // 출력: 5
+```
+
+- 비 순수 함수 ( Impure Function )
+
+비순수 함수는 순수 함수의 조건을 하나라도 만족하지 않는 함수다. 이는 동일한 입력에 대해 다른 출력을 반환하거나 함수 외부의 상태를 변경하는 부수 효과를 가지고 있다.
+
+```JavaScript
+// 비순수 함수 예시 1: 외부 상태를 변경하는 경우
+let counter = 0;
+
+function increment() {
+    counter++; // 외부 변수인 counter를 변경
+    return counter;
+}
+
+increment(); // counter는 1이 된다.
+increment(); // counter는 2가 된다.
+console.log(counter); // 출력: 2
+```
+
+```JavaScript
+// 비순수 함수 예시 2: 동일한 입력에 대해 다른 출력을 반환하는 경우
+function getRandomNumber() {
+    return Math.random(); // 호출할 때마다 다른 값이 반환.
+}
+
+getRandomNumber(); // 0.12345678... (예시)
+getRandomNumber(); // 0.98765432... (예시)
+```
