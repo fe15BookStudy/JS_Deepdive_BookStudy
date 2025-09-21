@@ -6,6 +6,28 @@
 - 변수에 생명 주기(life cycle)가 있으며, 생명 주기가 없다면 한번 선언된 변수는 프로그램을 종료하지 않는 한 영원히 메모리 공간을 점유합니다
 - 지역 변수의 생명 주기는 함수의 생명 주기와 일치합니다
 
+```javascript
+function foo() {
+  var x = 'local';
+  console.log(x); //local
+  return x;
+}
+
+foo();
+console.log(x); //ReferenceError: x is not defined
+```
+
+```javascript
+var x = 'global';
+
+function foo() {
+  console.log(x);
+  var x = 'local';
+}
+foo();
+console.log(x); //global
+```
+
 # 14.1.2 전역 변수의 생명 주기
 
 - 함수와 달리 전역 코드는 명시적인 호출 없이 실행됩니다
