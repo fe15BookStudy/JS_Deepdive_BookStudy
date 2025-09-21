@@ -1,5 +1,18 @@
+<br/>
+<img width="458" height="559" alt="image" src="https://github.com/user-attachments/assets/bac246a5-2ebd-4489-8ef2-5e36d7fcfeaa" />
 
 <br/>
+<br/>
+
+## 학습 일정
+
+| 주차 | 목표 학습 내용                    | 스터디 날짜 |
+| -------- | --------------------------------- | ------------- |
+| 1주차    | 4, 5, 6, 7장           | 08월 28일 금요일 |
+| 2주차    | 8, 9, 10장             |  09월 04일 금요일 |
+| 3주차    | 12장        |  09월 14일 일요일 |
+| 4주차    |              |  |
+
 
 ## 팀원 소개
 
@@ -15,7 +28,6 @@
       <td align="center"><a href="https://github.com/holyhw"><img src="https://avatars.githubusercontent.com/u/162965202?v=4" width="100px;" alt=""/><br /><sub><b>유현욱</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/nnjys99"><img src="https://avatars.githubusercontent.com/u/225927416?v=4" width="100px;" alt=""/><br /><sub><b>장유석</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/tjwngml"><img src="https://avatars.githubusercontent.com/u/226293705?v=4" width="100px;" alt=""/><br /><sub><b>서주희</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/Mark-Yoo"><img src="https://avatars.githubusercontent.com/u/46216456?v=4" width="100px;" alt=""/><br /><sub><b>유진혁</b></sub></a><br /></td>
      </tr>
   </tbody>
 </table>
