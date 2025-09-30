@@ -269,7 +269,7 @@ HTLM 요소에 id 어트리뷰트를 부여하면 id 값과 동일한 이름의 
 단, id 값과 동일한 이름의 전역 변수가 이미 선언되어 있으면 이 전역 변수에 노드 객체가 재할당되지 않는다.
 
 ```HTML
-<!DOCTYPE html>
+<!DOCTYPE html>   
 <html>
   <body>
     <div id="foo"></div>
