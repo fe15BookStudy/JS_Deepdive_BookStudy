@@ -169,6 +169,119 @@ Object
 
 ### 요소 노드 취득
 
+HTML의 구조나 내용, 스타일 등을 동적으로 조작하려면 요소 노드를 취득해야 한다.
+
+요소 노드의 취득은 HTML 요소를 조작하는 시작점이다. 이를 위해서 DOM 은 요소 노드를 취득할 수 있는 다양한 메서드를 제공한다.
+
+#### id를 이용한 요소 노드 취득
+
+Document.prototype.getElementById 메서드는 인수로 전달한 id 어트리뷰트 값 ( 이하 id 값 )을 갖는 하나의 요소 노드를 탐색하여 반환한다. getElementById 메서드는 DocumentById메서드는 Document.prototype의 프로퍼티다. 따라서 반드시 문서 노드인 document를 통해 호출해야 한다.
+
+```HTML
+<!DOCTYPE html>
+<html>
+  <body>
+    <ul>
+      <li id="apple">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="Orange">Orange</li>
+    </ul>
+  <script>
+    // id 값이 'banana'인 요소 노드를 탐색하여 반환한다.
+    // 두 번째 li 요소가 파싱되어 생성된 요소 노드가 반환된다.
+    const $elem = document.getElementById('banana');
+
+    // 취득한 요소 노드의 style.color 프로퍼티 값을 변경한다.
+    $elem.style.color = 'red';
+    </script>
+  </body>
+</html>
+```
+
+id 값은 HTML 문서 내에서 유일한 값이어야 하며 class 어트리뷰트와는 달리 공백 문자로 구분하여 여러 개의 값을 가질 수 없다. 단, HTML 문서 내에서 중복된 id 값을 갖는 HTML 요소가 여러 개 존재하더라도 어떠한 에러도 발생하지 않는다. 중복된 id 값을 갖는 요소가 여러 개 존재할 가능성이 있다는 말이다.
 
 
+이러한 경우에 getElementById 메서드는 인수로 전달된 id 값을 갖는 첫 번째 요소 노드만 반환한다. 즉 이 메서드는 언제나 단 하나의 요소 노드를 반환한다.
+
+```HTML
+<!DOCTYPE html>
+<html>
+  <body>
+    <ul>
+      <li id="banana">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="banana">Orange</li>
+    </ul>
+  <script>
+    // getElementById 메서드는 언제나 단 하나의 요소 노드를 반환한다.
+    // 첫 번째 li 요소가 파싱되어 생성된 요소 노드가 반환된다.
+    const $elem = document.getElementById('banana');
+
+    // 취득한 요소 노드의 style.color 프로퍼티 값을 변경한다.
+    $elem.style.color = 'red';
+    </script>
+  </body>
+</html>
+```
+
+만약 인수로 전달된 id 값을 갖는 HTML 요소가 존재하지 않는 경우 getElementById 메서드는 null을 반환한다.
+
+```HTML
+<!DOCTYPE html>
+<html>
+  <body>
+    <ul>
+      <li id="apple">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="Orange">Orange</li>
+    </ul>
+  <script>
+    // id 값이 'grape'인 요소 노드를 탐색하여 반환한다. null이 반환된다.
+    const $elem = document.getElementById('grape');
+
+    // 취득한 요소 노드의 style.color 프로퍼티 값을 변경한다.
+    $elem.style.color = 'red';
+    // -> TypeError: Cannot read property 'style' of null
+    </script>
+  </body>
+</html>
+```
+
+HTLM 요소에 id 어트리뷰트를 부여하면 id 값과 동일한 이름의 전역 변수가 암묵적으로 선언되고 해당노드 객체가 할당되는 부수 효과가 있다.
+
+```HTML
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="foo"></div>
+  <script>
+    // id 값과 동일한 이름의 전역 변수가 암묵적으로 선언되고 해당 노드 객체가 할당된다.
+    console.log(foo === document.getElementById('foo')); //true
+
+    // 암묵적 전역으로 생성된 전역 프로퍼티는 삭제되지만 전역 변수는 삭제되지 않는다
+    delete foo;
+    console.log(foo); // <div id="foo"></div>
+   </script>
+  </body>
+</html>
+```
+
+단, id 값과 동일한 이름의 전역 변수가 이미 선언되어 있으면 이 전역 변수에 노드 객체가 재할당되지 않는다.
+
+```HTML
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="foo"></div>
+  <script>
+    let foo =1;
+    // id 값과 동일한 이름의 전역 변수가 이미 선언되어 있으면 노드 객체가 재할당되지 않는다.
+   
+    console.log(foo); // 1
+   </script>
+  </body>
+</html>
+```
+
+#### 태그 이름을 이용한 요소 노드 취득
 
