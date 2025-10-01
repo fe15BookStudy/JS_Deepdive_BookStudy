@@ -237,6 +237,19 @@ console.log($apple.matches('#fruits > li.banana')); // false
   - 반환 타입: NodeList (유사 배열, forEach 사용 가능).
   - NodeList는 대개 non-live라서 DOM이 바뀌어도 즉시 반영되지 않음.
 
+| 분류  | API                        | 반환 타입          | 특징                      |
+| --- | -------------------------- | -------------- | ----------------------- |
+| 선택  | getElementById             | Element        | 단일 반환                   |
+| 선택  | getElementsByClassName     | HTMLCollection | live                    |
+| 선택  | querySelectorAll           | NodeList       | 보통 non-live, forEach 가능 |
+| 탐색  | parentNode / parentElement | Node / Element | 부모 탐색                   |
+| 탐색  | children                   | HTMLCollection | 요소 자식만                  |
+| 탐색  | nextElementSibling         | Element        | 형제 탐색                   |
+| 정보  | nodeType                   | Number         | 1, 3, 9 등               |
+| 정보  | nodeName                   | String         | 태그명, #text, #document   |
+| 텍스트 | nodeValue                  | String         | 텍스트 노드 전용               |
+| 텍스트 | textContent                | String         | 내부 전체 텍스트               |
+
 2. Element.prototype.matches
  - 특정 요소가 주어진 CSS 선택자 조건에 부합하는지 확인할 때 사용.
  - 반환값: true / false.
@@ -327,7 +340,7 @@ console.log($elems);
 </body>
 </html>
 ```
-### 39.3.4 형제 노드 탐색39.3.4 형제 노드 탐색
+### 39.3.4 형제 노드 탐색
 - Node.prototype.previousSibling/nextSibling: 이전/다음 형제 노드
 - Element.prototype.previousElementSibling/nextElementSibling: 이전/다음 형제 요소 노드
 
