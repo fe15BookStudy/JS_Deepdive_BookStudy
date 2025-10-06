@@ -427,3 +427,45 @@ person.foo(function() {
 | **bind 호출**  | `func.bind(obj)()`                   | `obj` (고정됨)  |
 | **화살표 함수**   | `() => this`                         | 상위 스코프의 this |
 
+### 8. this 바인딩의 추가 개념 및 원리
+#### $\mathrm{var}$로 선언된 전역 변수와 const/let으로 선언된 전역 변수의 차이
+일반 함수 호출 시 this는 전역 객체에 바인딩되는데, 이때 전역 객체의 프로퍼티를 참조할 때 var와 const/let의 차이가 드러납니다.
+- var로 선언된 전역 변수: 전역 객체(브라우저의 window, Node.js의 global)의 프로퍼티로 추가됩니다.
+  - 예시: var value = 1; → window.value가 1이 됩니다. 따라서 일반 함수에서 this.value는 1이 됩니다.
+- const나 let으로 선언된 전역 변수: 전역 객체의 프로퍼티가 아닙니다.
+  - 예시: const value = 1; → window.value는 undefined 또는 기존 전역 객체에 있던 값이 유지됩니다. 따라서 일반 함수에서 this.value는 1이 아닌 다른 값이 됩니다 
+
+#### this 바인딩과 렉시컬 스코프의 결정 시점
+this 바인딩과 렉시컬 스코프(lexical scope)는 결정되는 시점이 다릅니다.
+- 렉시컬 스코프: 함수가 정의되는 시점에 결정되며, 상위 스코프가 무엇인지 정해집니다.
+- this 바인딩: 함수가 호출되는 시점에 결정되며, 호출 방식에 따라 동적으로 바뀝니다.
+
+### 9. Function.prototype 메서드의 심층 활용
+#### $\mathrm{apply}$와 $\mathrm{call}$의 인수 전달 방식
+apply와 call은 this 바인딩의 대상 객체(thisArg)를 첫 번째 인수로 받는 것은 동일하지만, 함수에 전달할 나머지 인수를 다루는 방식에서 차이가 납니다.
+- apply(thisArg, argsArray): 인수를 배열 또는 유사 배열 객체로 묶어서 전달합니다.
+- call(thisArg, arg1, arg2, [...]): 인수를 쉼표로 구분된 리스트 형식으로 전달합니다.
+
+#### $\mathrm{apply}$와 $\mathrm{call}$을 이용한 유사 배열 객체에 배열 메서드 사용
+arguments 객체와 같이 유사 배열 객체는 배열이 아니므로 Array.prototype.slice와 같은 배열 메서드를 직접 사용할 수 없습니다. 이때 apply나 call을 사용하여 이 문제를 해결합니다.
+- 원리: Array.prototype.slice를 호출하되, call이나 apply를 사용하여 this를 arguments 객체로 설정하면, 마치 arguments가 배열인 것처럼 배열 메서드를 사용할 수 있게 됩니다.
+  - 예시: Array.prototype.slice.call(arguments) → arguments 객체를 배열로 변환하는 데 사용됩니다.
+#### bind 메서드의 역할
+ bind 메서드는 this 바인딩을 영구적으로 고정하는 데 사용되며, apply나 call처럼 함수를 즉시 호출하지 않습니다.
+ - 동작: bind는 첫 번째 인수로 전달된 this 바인딩이 고정된 새로운 함수를 생성하여 반환합니다.
+ - 예시: getThisBinding.bind(thisArg)는 this가 {a: 1}로 고정된 새로운 함수를 반환하며, 이 함수를 나중에 호출할 때 this는 항상 {a: 1}입니다.
+
+ ### 10. 콜백 함수 this 바인딩 문제 해결 심화
+ 메서드 내부의 $\mathrm{setTimeout}$과 같은 **보조 함수(헬퍼 함수)**의 콜백 함수는 일반 함수로 호출되면서 this가 전역 객체에 바인딩되어 외부 this와 불일치하는 문제가 발생합니다.
+ #### 10.1. $\mathrm{bind}$를 사용한 명시적 this 바인딩
+ - setTimeout(callback.bind(this), 100);와 같이 bind를 사용하여 콜백 함수의 this를 외부 메서드의 this와 일치시킵니다.
+ #### 10.2 that 변수를 사용한 this 우회
+ - ES6 이전에는 메서드 진입 시 const that = this;와 같이 this를 that 변수에 할당하여 클로저를 통해 that 변수를 참조하는 방식으로 문제를 해결했습니다.
+ #### 10.3 화살표 함수를 사용한 this 바인딩
+ - 화살표 함수는 자체적인 this 바인딩을 갖지 않습니다. 대신, 자신이 선언될 당시의 상위(렉시컬) 스코프의 this를 계승합니다.
+ - 따라서 메서드 내부에서 화살표 함수를 사용하면, 콜백 함수 내부의 this가 메서드를 호출한 객체(obj)를 자연스럽게 가리키게 됩니다.
+ | 해결방법           | this 설정 방식                 | 적용 가능성        |
+| ------------ | ------------------------------------ | ------------ |
+| `bind` 메서드 | 명시적으로 `this`를 고정              | 모든 함수        |
+| `that` 변수  | 클로저를 통해 `this`를 참조              | 모든 함수(ES6이전 주류)        |
+| 화살표 함수 | 렉시컬 스코플의 `this` 계승                 | ES6+ |
