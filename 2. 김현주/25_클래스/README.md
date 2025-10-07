@@ -3,13 +3,13 @@
 → 클래스 선언 시 내부적으로 생성자 함수가 만들어진다.
 - class 키워드를 사용하며, 이름은 보통 파스칼 케이스(MyClass)로 쓴다.
 - 클래스도 값처럼 표현식으로 정의 가능하다.
-| 구분         | 생성자 함수                   | 클래스 (`class`)              |
-| ---------- | ------------------------ | -------------------------- |
-| **호출 방식**  | `new` 없이 호출 가능           | 반드시 `new`로 호출해야 함          |
-| **상속 문법**  | `prototype`을 수동으로 연결     | `extends`, `super` 키워드 제공  |
-| **호이스팅**   | 함수 호이스팅 발생 (선언 전 호출 가능)  | TDZ 존재 — 선언 전에 호출 불가       |
-| **엄격 모드**  | 명시하지 않으면 비엄격 모드          | 항상 암묵적으로 strict mode       |
-| **메서드 속성** | enumerable: true (열거 가능) | enumerable: false (열거 불가능) |
+| 구분        | 생성자 함수                              | 클래스 (`class`)                    |
+| ---------- | -----------------------------------------| ---------------------------------- |
+| **호출 방식**  | `new` 없이 호출 가능                   | 반드시 `new`로 호출해야 함          |
+| **상속 문법**  | `prototype`을 수동으로 연결            | `extends`, `super` 키워드 제공      |
+| **호이스팅**   | 함수 호이스팅 발생 (선언 전 호출 가능)  | TDZ 존재 — 선언 전에 호출 불가        |
+| **엄격 모드**  | 명시하지 않으면 비엄격 모드             | 항상 암묵적으로 strict mode          |
+| **메서드 속성** | enumerable: true (열거 가능)          | enumerable: false (열거 불가능)     |
 
 ```javascript
 const Person = class MyClass {};
@@ -44,6 +44,7 @@ class Person {
 1. constructor
 2. 프로토타입 메서드
 3. 정적(static) 메서드
+
 🔹 constructor (생성자)
 
 - 인스턴스를 생성하고 필드를 초기화하기 위한 특수 메서드.
@@ -167,8 +168,10 @@ class Square {
 
 2️⃣ this 바인딩
 - constructor 내부의 this가 이 새 객체를 참조하게 됨.
+
 3️⃣ 프로퍼티 추가 및 초기화
 - constructor 내부에서 this.name = name 식으로 프로퍼티 초기화.
+
 4️⃣ 인스턴스 반환
 - constructor가 반환하지 않으면, this가 암묵적으로 반환됨.
 ```javascript
@@ -435,6 +438,7 @@ class Derived extends Base {}
 super는 두 가지 역할을 한다.
 
 1️⃣ 부모 클래스의 생성자(super constructor) 호출
+
 2️⃣ 부모 클래스의 메서드(super method) 참조
 
 (1) super() 호출
@@ -703,11 +707,10 @@ class MyArray extends Array {
 ```
 - MyArray는 Array를 상속하므로, 배열 관련 내장 메서드(map, filter, reduce) 사용 가능.
 - 인스턴스는 Array.prototype의 메서드뿐 아니라 MyArray.prototype의 메서드도 쓸 수 있다.
-  ```javascript
+```javascript
 const myArray = new MyArray(1, 1, 2, 3);
 console.log(myArray.uniq()); // MyArray [1, 2, 3]
 console.log(myArray.average()); // 1.75
-```
 ```
 ### 23. Symbol.species와 메서드 체이닝 문제
 -Array의 map, filter 등은 새로운 배열 인스턴스를 반환한다.
