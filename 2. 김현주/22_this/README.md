@@ -117,6 +117,7 @@ obj.foo();
 - (콜백/타이머 내부에서도 같은 이유)
 
 예제 22-10)
+```javascript
 var value = 1;
 
 const obj = {
