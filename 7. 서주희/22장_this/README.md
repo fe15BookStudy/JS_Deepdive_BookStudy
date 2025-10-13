@@ -234,3 +234,105 @@ console.log(Person.prototype.getName()); // 2. Kim
 --------
 
  #### 생성자 함수 호출
+
+ 생성자 함수 내부의 this 에는 생성자 함수가 (미래에) 생성할 인스턴스가 바인딩 된다.
+
+ 인스턴스란 프로그래밍에서 클래스 (class) 라는 설계도를 바탕으로 메모리에 실제로 만들어진 실체를 의미한다.
+
+ 비유하자면 클래스 ( class ) 는 붕어빵을 만드는 '틀' ( 설계도, 개념) 이며 인스턴스 ( Instance )는 그 틀로 찍어낸
+
+ '붕어빵 하나하나' ( 실제 객체, 실체) 로 의미하면 된다.
+
+ 만일 '자동차' 라는 클래스를 정의했다고 가정하면 
+
+ 1. 클래스 정의 ( Car class ) : 
+
+ - 속성 : `color` , `speed`, `brand`
+ - 행동 : `accelearte()`, `break()`
+
+ 2. 인스턴스 생성:
+
+ - `my_car = new Car()` : 인스턴스 1 (색상 : 빨강 , 속도 : 0, 브랜드 : 현대)
+ - `your_car = new Car()` : 인스턴스 2 ( 색상 : 파랑, 속도 : 0, 브랜드 : BMW)
+
+ 이때 `my_car`와 `your_car` 각각이 Car 클래스의 인스턴스이며 , 메모리에 독립적으로 존재하는 실제 객체이다. 
+ 두 인스턴스는 동일한 설계도 ( 클래스 )를 따르지만, 속성 값은 서로 다를 수 있다.
+
+ 요약하자면 클래스가 타입이라면, 인스턴스는 그 타입의 '변수' 또는 '객체'이다. 
+
+ ```JavaScript
+// 생성자 함수
+function Circle(radius) {
+  // 생성자 함수 내부의 this는 생성자 함수가 생성할 인스턴스를 가리킨다.
+  this.radius = radius;
+  this.getDiameter = function (){
+    return 2 * this.radius;
+  };
+}
+
+// 반지름이 5인 Circle 객체를 생성
+const circle1 = new Circle(5);
+// 반지름이 10인 Circle 객체를 생성
+const circle2 = new Circle(10);
+
+console.log(circle1.getDiameter()); //10
+console.log(circle2.getDiameter()); //20
+```
+
+생성자 함수는 이름 그대로 객체(인스턴스)를 생성하는 함수다. 일반 함수와 동일한 방법으로 생성자 함수를 정의하고 new 연산자와 함께 호출하면 해당 함수는 생성자 함수로 동작한다.
+
+만약 new 연산자와 함께 생성자 함수를 호출하지 않으면 생성자 함수가 아니라 일반 함수로 동작한다.
+
+```JavaScript
+// new 연산자와 함께 호출되지 않으면 생성자 함수로 동작하지 않는다. 즉, 일반적인 함수의 호출이다.
+const circle3 = Circle(15);
+
+// 일반 함수로 호출된 Circle에는 반환문이 없으므로 암묵적으로 undefined를 반환한다.
+console.log(circle3); //undefined
+
+// 일반 함수로 호출된 Circle 내부의 this는 전역 객체를 가리킨다.
+console.log(radius); //15
+```
+
+#### Function.prototype.apply/call/bind 메서드에 의한 간접 호출
+
+apply, call, bind 메서드는 Function.prototype의 멧드다. 즉, 이들 메서드는 모든 함수가 상속받아 사용할 수 있다.
+
+Function.prototype.apply, Function.prototype.call 메서드는 this로 사용할 객체와 인수 리스트를 인수로 전달받아 함수를 호출한다. apply와 call 메서드의 사용법은 다음과 같다.
+
+```JavaScript
+/**
+ * 주어진 this 바인딩과 인수 리스트 배열을 사용하여 함수를 호출한다.
+ * @param thisArg - this로 사용할 객체
+ * @param argsArray - 함수에게 전달한 인수 리스트의 배열 또는 유사 배열 객체
+ * @retruns 호출된 함수의 반환값
+ */
+Function.prototype.apply(thisArg[, argsArray])
+
+/**
+ * 주어진 this 바인딩과 ,로 구분된 인수 리스트를 사용하여 함수를 호출한다.
+ * @param thisArg - this로 사용할 객체
+ * @param arg1, arg2, arg ...  - 함수에게 전달할 인수 리스트
+ * @returns 호출된 함수의 반환값
+ */
+Function.prototype.call(thisArg[, arg1[, arg2[, ...]]])
+```
+
+```JavaScript
+function getThisBinding(){
+  return this;
+}
+
+// this로 사용할 객체
+const thisArg = { a:1 };
+
+console.log(getThisBinding()); // window
+
+// getThisBinding 함수를 호출하면서 인수로 전달한 객체를 getThisBinding 함수의 this에 바인딩한다.
+console.log(getThisBinding.apply(thisArg)); // {a:1}
+console.log(getThisBinding.call(thisArg)); // {a:1}
+```
+
+apply와 call 메서드의 본질적인 기능은 함수를 호출하는 것이다. apply와 call 메서드는 함수를 호출하면서 첫 번째 인수로 전달한 특정 객체를 호출한 함수의 this에 바인딩한다.
+
+apply 와 call 메서드는 호출할 함수에 인수를 전달하는 방식만 다를 뿐 동일하게 동작한다. 위 예제는 호출할 함수, 즉 getThisBinding 함수에 인수를 전달하지 않는다. apply와 call 메서드를 통해 getThisBinding 함수를 호출하면서 인수를 전달해 보자.
