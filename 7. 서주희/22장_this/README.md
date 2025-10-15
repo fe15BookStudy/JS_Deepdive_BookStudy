@@ -336,3 +336,30 @@ console.log(getThisBinding.call(thisArg)); // {a:1}
 apply와 call 메서드의 본질적인 기능은 함수를 호출하는 것이다. apply와 call 메서드는 함수를 호출하면서 첫 번째 인수로 전달한 특정 객체를 호출한 함수의 this에 바인딩한다.
 
 apply 와 call 메서드는 호출할 함수에 인수를 전달하는 방식만 다를 뿐 동일하게 동작한다. 위 예제는 호출할 함수, 즉 getThisBinding 함수에 인수를 전달하지 않는다. apply와 call 메서드를 통해 getThisBinding 함수를 호출하면서 인수를 전달해 보자.
+
+```JavaScript
+function getThisBinding(){
+  console.log(arguments);
+  return this;
+}
+
+// this로 사용할 객체
+const thisArg = { a : 1};
+
+// getThisBinding 함수를 호출하면서 인수로 전달한 객체를 getThisBinding 함수의 this에 바인딩한다.
+// apply 메서드는 호출할 함수의 인수를 배열로 묶어 전달한다.
+console.log(getThisBinding.apply(thisArg, [1,2,3]));
+// Arguments(3) [ 1, 2, 3 callee: f, Symbol(Symbol.iterator): f]
+// {a : 1}
+
+// call 메서드는 호출할 함수의 인수를 쉼표로 구분한 리스트 형식으로 전달한다.
+console.log(GetThisBinding.call(thisArg, 1, 2,3));
+// Arguments(3) [1, 2, 3, callee: f, Symbol(Symbol.iterator): f]
+// {a: 1}
+```
+
+apply 메서드는 호출할 함수의 인수를 배열로 묶어 전달한다. call 메서드는 호출할 함수의 인수를 쉼표로 구분한 리스트 형식으로 전달한다.
+
+두 메서드의 대표적인 용도는 arguments 객체와 같은 유사 배열 객체에 배열 메서드를 사용하는 경우다.
+arguments 객체는 배열이 아니기 때문에 Array.prototype.slice 같은 배열의 메서드를 사용 할수 없으나 apply 와 call 메서드를 이용하면 가능하다.
+
