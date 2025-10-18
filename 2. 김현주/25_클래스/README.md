@@ -206,62 +206,7 @@ class Person {
 class Person {
   constructor(first, last) {
     this.firstName = first;
-    this.lastName = last;
-  }
-
-  get fullName() {
-    return `${this.firstName} ${this.lastName}`;
-  }
-
-  set fullName(name) {
-    [this.firstName, this.lastName] = name.split(' ');
-  }
-}
-```
-사용 예)
-```javascript
-const me = new Person('Ungmo', 'Lee');
-console.log(me.fullName); // getter → Ungmo Lee
-me.fullName = 'Heegun Lee'; // setter
-console.log(me.fullName); // getter → Heegun Lee
-```
-- getter는 호출이 아닌 프로퍼티 접근처럼 사용된다.
-- setter는 값을 할당할 때 자동 실행된다.
-- Object.getOwnPropertyDescriptor로 보면 { get: f, set: f } 형태로 표시된다.
-
-### 25.7.3 클래스 필드 정의 제안 (Class Field Definition Proposal)
-- 기존에는 constructor 내부에서만 인스턴스 프로퍼티 정의 가능했지만,
-ES2022 이후 class body에서도 필드 정의가 가능해짐.
-```javascript
-class Person {
-  name = 'Lee'; // 클래스 필드
-}
-const me = new Person();
-console.log(me.name); // Lee
-```
-> 즉, constructor 없이도 인스턴스 프로퍼티를 선언/초기화할 수 있다.
-
-🔹 클래스 필드 초기화 시 주의점
-- 클래스 몸체에서 this를 사용할 수 없음 (아직 인스턴스가 없기 때문).
-- 값이 없으면 undefined로 초기화된다.
-```javascript
-class Person {
-  name; // undefined
-}
-```
-🔹 함수도 필드로 정의 가능
-- 화살표 함수를 필드로 정의하면, 해당 함수는 인스턴스 메서드가 된다.
-```javascript
-class App {
-  count = 0;
-  increase = () => this.count++;
-}
-```
-→ 화살표 함수의 this는 항상 인스턴스를 가리킨다.
-
-### 25.7.4 private 필드 정의 제안
-- `#` 기호를 붙이면 private 필드가 된다.
-- 클래스 내부에섬나 접근 가능하고 외부에서는 완전히 차단된다.
+    this.lastNa나 접근 가능하고 외부에서는 완전히 차단된다.
 ```javascript
 class Person {
   #name = 'Lee';
